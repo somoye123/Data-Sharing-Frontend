@@ -5,7 +5,13 @@ interface RequireAuthProps {
   allowedRoles: Array<{ isAdmin: boolean }>;
 }
 
-const RequireAuth = ({ allowedRoles }: RequireAuthProps) => {
+/**
+ * RequireAuth component.
+ *
+ * @returns {JSX.Element} The rendered RequireAuth component.
+ */
+
+const RequireAuth = ({ allowedRoles }: RequireAuthProps): JSX.Element => {
   const { user, isAuthenticated } = useUser();
 
   const location = useLocation();

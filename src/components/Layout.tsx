@@ -1,6 +1,13 @@
 import { Outlet } from 'react-router-dom';
 import Nav from './Nav';
-const Layout = () => {
+
+/**
+ * Layout component.
+ *
+ * @returns {JSX.Element} The rendered Layout component.
+ */
+
+const Layout = (): JSX.Element => {
   return (
     <>
       <header>

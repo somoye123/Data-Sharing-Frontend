@@ -1,13 +1,19 @@
 import { useUser, useLogout } from '../hooks';
 
-const Nav = () => {
+/**
+ * Nav component.
+ *
+ * @returns {JSX.Element} The rendered Nav component.
+ */
+
+const Nav = (): JSX.Element => {
   const { isAuthenticated: isLoggedIn } = useUser();
   const { logout } = useLogout();
 
   return isLoggedIn ? (
     <button onClick={() => logout()}>logout</button>
   ) : (
-    'Login form below'
+    <p>'Login form below'</p>
   );
 };
 
