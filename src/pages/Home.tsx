@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../hooks';
 import { updateUser } from '../redux/userSlice';
 import { useUser } from '../hooks';
@@ -12,6 +13,7 @@ import { useUser } from '../hooks';
 const Home = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { user } = useUser();
+  const navigate = useNavigate();
 
   interface FormData {
     companyName: string;
@@ -39,6 +41,10 @@ const Home = (): JSX.Element => {
       console.error('Error submitting User data:', error);
     }
   };
+
+  useEffect(() => {
+    if (user?.isAdmin) navigate('/admin', { replace: true });
+  }, [navigate, user?.isAdmin]);
 
   useEffect(() => {
     if (user && user?.companyDetails) {
