@@ -23,6 +23,7 @@ export interface UserCompanyDetails {
   numUsers: number;
   numProducts: number;
   percentage: number;
+  logo?: string;
 }
 
 export interface OperationResult {
@@ -30,4 +31,9 @@ export interface OperationResult {
   isError: boolean;
   errorMessage?: string;
   successMessage?: string;
+}
+
+export interface fileUpload {
+  uid: string;
+  file: File;
 }
