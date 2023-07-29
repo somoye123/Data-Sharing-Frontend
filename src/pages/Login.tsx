@@ -1,10 +1,16 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import login from '../firebase/login';
 import { toast } from 'react-toastify';
 import { useUser } from '../hooks';
 
-const LoginForm = () => {
+/**
+ * Login component.
+ *
+ * @returns {JSX.Element} The rendered Login Page component.
+ */
+
+const LoginForm = (): JSX.Element => {
   const { user, isAuthenticated } = useUser();
 
   const navigate = useNavigate();
@@ -14,7 +20,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (event: { preventDefault: () => void }) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       if (email === '' || password === '')
@@ -32,12 +38,12 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="username">Username:</label>
+        <label htmlFor="email">Email:</label>
         <input
           type="text"
-          id="username"
+          id="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={({ target: { value } }) => setEmail(value)}
         />
       </div>
       <div>
@@ -46,7 +52,7 @@ const LoginForm = () => {
           type="password"
           id="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={({ target: { value } }) => setPassword(value)}
         />
       </div>
       <button type="submit">Login</button>
