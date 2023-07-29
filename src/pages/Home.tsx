@@ -44,7 +44,7 @@ const Home = (): JSX.Element => {
 
   useEffect(() => {
     if (user?.isAdmin) navigate('/admin', { replace: true });
-  }, [navigate, user?.isAdmin]);
+  }, []);
 
   useEffect(() => {
     if (user && user?.companyDetails) {
