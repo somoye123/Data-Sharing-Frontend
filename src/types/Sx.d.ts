@@ -7,6 +7,7 @@ export interface User {
   userId: string;
   isAdmin: boolean;
   email: string;
+  companyDetails?: UserCompanyDetails | null;
   createdAt?: {
     seconds?: number;
     nanoseconds?: number;
@@ -15,6 +16,13 @@ export interface User {
     seconds?: number;
     nanoseconds?: number;
   };
+}
+
+export interface UserCompanyDetails {
+  companyName: string;
+  numUsers: number;
+  numProducts: number;
+  percentage: number;
 }
 
 export interface OperationResult {
