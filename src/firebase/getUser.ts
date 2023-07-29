@@ -10,7 +10,8 @@ import {
 import { toast } from 'react-toastify';
 
 import { firestoreDb } from './initialize';
-import OperationResult from './interfaces/operation';
+import { OperationResult } from '../types/Sx';
+
 import { mapAuthCodeToMessage, generalErrMsg } from './utils';
 
 const getUser = async (userId: string): Promise<object | OperationResult> => {
@@ -36,7 +37,7 @@ const getUser = async (userId: string): Promise<object | OperationResult> => {
         errorMessage: 'Firebase Firestore: unable to fetch user object.',
       };
     }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     const errorCode = error.code;
     const errorMessage = mapAuthCodeToMessage(errorCode) || generalErrMsg;
