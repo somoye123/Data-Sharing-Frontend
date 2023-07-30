@@ -1,11 +1,9 @@
 export interface User {
+  id: string | null;
   uid: string;
-  accessToken: string;
-  refreshToken: string;
-  expirationTime: number;
   name: string;
-  userId: string;
   isAdmin: boolean;
+  userId: string;
   email: string;
   companyDetails?: UserCompanyDetails | null;
   createdAt?: {
@@ -35,5 +33,5 @@ export interface OperationResult {
 
 export interface fileUpload {
   uid: string;
-  file: File;
+  file: FormData;
 }
