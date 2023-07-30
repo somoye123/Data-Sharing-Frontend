@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
-import { UserCredential } from 'firebase/auth';
+import { UserCredential, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { OperationResult, User } from '../types/Sx';
 
-import { firebaseAuth, signInWithEmailAndPassword } from './initialize';
+import { firebaseAuth } from './initialize';
 import { mapAuthCodeToMessage, generalAuthErrMsgs } from './utils';
 import getUser from './getUser';
 
