@@ -2,12 +2,16 @@ import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useAuthentication } from './hooks';
+import { useAuthentication, useUser } from './hooks';
 import { Layout, RequireAuth } from './components';
 import { Home, Login, Unauthorized, NotFound, Admin } from './pages';
 
 function App() {
+  const { appFirstLoad } = useUser();
+
   useAuthentication();
+  if (appFirstLoad) return <h1>Loading Application</h1>;
+
   return (
     <>
       <ToastContainer autoClose={3000} />
