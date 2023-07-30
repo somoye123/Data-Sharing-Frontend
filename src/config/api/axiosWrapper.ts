@@ -1,23 +1,29 @@
 import { toast } from 'react-toastify';
-import statusMessage from './status';
+import { AxiosResponse, Method, AxiosRequestConfig } from 'axios';
 
 import Http from './axios';
+
+interface httpWrapperPayLoad {
+  method?: Method;
+  url: string;
+  payload?: unknown;
+  cancelToken?: AxiosRequestConfig;
+}
 
 const httpWrapper = async ({
   method = 'get',
   url,
-  status,
   payload,
-  message,
   cancelToken,
-}) => {
+}: httpWrapperPayLoad): Promise<AxiosResponse> => {
   try {
     const response = await Http[method](url, payload, cancelToken);
-    status === 'success' &&
-      toast.success(message || statusMessage(response)?.success);
     return response.data;
-  } catch (error) {
-    toast.error(statusMessage(error)?.error);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.log(error);
+
+    toast.error(error?.response?.data?.message || 'Something went wrong');
     return Promise.reject(error);
   }
 };

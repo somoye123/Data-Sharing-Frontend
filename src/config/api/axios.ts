@@ -1,11 +1,14 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
+import { User } from 'firebase/auth';
 
-const Http = axios.create({
+const Http: AxiosInstance = axios.create({
   baseURL: process.env.VITE_API_URL,
 });
-
-export const setToken = {
-  getToken: async () => '',
+interface CurrentUser {
+  currentUser: User | null;
+}
+export const setUser: CurrentUser = {
+  currentUser: null,
 };
 
 Http.defaults.baseURL = process.env.VITE_API_URL;
@@ -20,10 +23,12 @@ Http.interceptors.response.use(
 
 Http.interceptors.request.use(
   async (config) => {
-    const token = await setToken.getToken();
+    const token = await setUser.currentUser?.getIdToken();
+
     if (!config.headers.Authorization) {
-      config.headers.Authorization = `Bearer ${token}`;
+      if (token) config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error)
