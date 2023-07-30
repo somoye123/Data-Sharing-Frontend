@@ -41,22 +41,28 @@ const Admin = () => {
       {isComparing && (
         <>
           {nonAdmins?.map(({ companyDetails, uid }, index) => (
-            <div>
+            <div key={uid}>
               <h1>User {index + 1}</h1>
-              <h4>Company Name: {companyDetails?.companyName}</h4>
-              <h4>Number of Users: {companyDetails?.numUsers}</h4>
-              <h4>Number of Products: {companyDetails?.numProducts}</h4>
-              <h4>Percentage: {companyDetails?.percentage}</h4>
-              {companyDetails?.logo ? (
-                <img
-                  src={companyDetails?.logo}
-                  alt={`User ${index + 1} company logo`}
-                />
-              ) : (
+              {companyDetails ? (
                 <>
-                  <h4>Select and upload company logo</h4>
-                  <FileUpload uid={uid} uploadLogo={uploadLogo} />
+                  <h4>Company Name: {companyDetails?.companyName}</h4>
+                  <h4>Number of Users: {companyDetails?.numUsers}</h4>
+                  <h4>Number of Products: {companyDetails?.numProducts}</h4>
+                  <h4>Percentage: {companyDetails?.percentage}</h4>
+                  {companyDetails?.logo ? (
+                    <img
+                      src={companyDetails?.logo}
+                      alt={`User ${index + 1} company logo`}
+                    />
+                  ) : (
+                    <>
+                      <h4>Select and upload company logo</h4>
+                      <FileUpload uid={uid} uploadLogo={uploadLogo} />
+                    </>
+                  )}
                 </>
+              ) : (
+                <p>No User Inputed Details Yet</p>
               )}
             </div>
           ))}
