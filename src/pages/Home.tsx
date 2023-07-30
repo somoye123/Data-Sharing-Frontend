@@ -12,7 +12,7 @@ import { useUser } from '../hooks';
 
 const Home = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { user } = useUser();
+  const { user, status } = useUser();
   const navigate = useNavigate();
 
   interface FormData {
@@ -35,7 +35,12 @@ const Home = (): JSX.Element => {
     try {
       event.preventDefault();
       const percentage: number = (state.numUsers / state.numProducts) * 100;
-      dispatch(updateUser({ ...state, percentage }));
+      dispatch(
+        updateUser({
+          ...state,
+          percentage: Number.isNaN(percentage) ? 0 : percentage,
+        })
+      );
       setIsEdit(false);
     } catch (error) {
       console.error('Error submitting User data:', error);
@@ -44,6 +49,7 @@ const Home = (): JSX.Element => {
 
   useEffect(() => {
     if (user?.isAdmin) navigate('/admin', { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -56,6 +62,8 @@ const Home = (): JSX.Element => {
       });
     }
   }, [user]);
+
+  if (status === 'loading') return <h2>Saving to Database</h2>;
 
   return (
     <>
