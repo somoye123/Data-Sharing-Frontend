@@ -17,7 +17,13 @@ const httpWrapper = async ({
   cancelToken,
 }: httpWrapperPayLoad): Promise<AxiosResponse> => {
   try {
-    const response = await Http[method](url, payload, cancelToken);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    const response: AxiosResponse = await Http[method](
+      url,
+      payload,
+      cancelToken
+    );
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
