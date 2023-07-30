@@ -20,6 +20,7 @@ const Home = (): JSX.Element => {
     numUsers: number;
     numProducts: number;
     percentage: number;
+    logo?: string | null;
   }
 
   const [state, setState] = useState<FormData>({
@@ -27,6 +28,7 @@ const Home = (): JSX.Element => {
     numUsers: 0,
     numProducts: 0,
     percentage: 0,
+    logo: null,
   });
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -37,7 +39,9 @@ const Home = (): JSX.Element => {
       const percentage: number = (state.numUsers / state.numProducts) * 100;
       dispatch(
         updateUser({
-          ...state,
+          companyName: state?.companyName,
+          numUsers: state?.numUsers,
+          numProducts: state?.numProducts,
           percentage: Number.isNaN(percentage) ? 0 : percentage,
         })
       );
@@ -59,6 +63,7 @@ const Home = (): JSX.Element => {
         numUsers: user?.companyDetails?.numUsers || 0,
         numProducts: user?.companyDetails?.numProducts || 0,
         percentage: user?.companyDetails?.percentage || 0,
+        logo: user?.companyDetails?.logo || null,
       });
     }
   }, [user]);
@@ -74,6 +79,11 @@ const Home = (): JSX.Element => {
           <h1>Number of Users: {state?.numUsers}</h1>
           <h1>Number of Products: {state?.numProducts}</h1>
           <h1>Percentage: {state?.percentage}</h1>
+          {state?.logo && (
+            <div>
+              <img src={state?.logo} alt="company logo" />
+            </div>
+          )}
           <button type="button" onClick={() => setIsEdit(true)}>
             Edit Company Details
           </button>
