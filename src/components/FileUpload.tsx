@@ -24,7 +24,10 @@ const FileUpload = ({ uid, uploadLogo }: FileUploadProps): JSX.Element => {
     try {
       event.preventDefault();
       if (selectedFile) {
-        uploadLogo({ uid, file: selectedFile });
+        const file = new FormData();
+        file.append('companyLogo', selectedFile);
+
+        uploadLogo({ uid, file });
       } else {
         console.log('No file selected.');
       }
@@ -37,6 +40,7 @@ const FileUpload = ({ uid, uploadLogo }: FileUploadProps): JSX.Element => {
     <form onSubmit={handleSubmit}>
       <input
         type="file"
+        name="companyLogo"
         onChange={handleFileChange}
         accept="image/png, image/jpeg, image/svg"
       />
