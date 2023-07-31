@@ -51,10 +51,14 @@ const Admin = () => {
                   <h4>Number of Products: {companyDetails?.numProducts}</h4>
                   <h4>Percentage: {companyDetails?.percentage}</h4>
                   {companyDetails?.logo ? (
-                    <img
-                      src={companyDetails?.logo}
-                      alt={`User ${index + 1} company logo`}
-                    />
+                    <>
+                      <img
+                        src={companyDetails?.logo}
+                        alt={`User ${index + 1} company logo`}
+                      />
+                      <h4>Select and UPDATE current logo</h4>
+                      <FileUpload uid={uid} uploadLogo={uploadLogo} />
+                    </>
                   ) : (
                     <>
                       <h4>Select and upload company logo</h4>
