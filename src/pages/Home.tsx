@@ -35,6 +35,20 @@ const Home = (): JSX.Element => {
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
+  const calculatePercentage = (num1: number, num2: number): number => {
+    let smallerValue: number, biggerValue: number;
+
+    if (num1 <= num2) {
+      smallerValue = num1;
+      biggerValue = num2;
+    } else {
+      smallerValue = num2;
+      biggerValue = num1;
+    }
+
+    return Math.ceil((smallerValue / biggerValue) * 100);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
@@ -111,7 +125,10 @@ const Home = (): JSX.Element => {
               setState({
                 ...state,
                 numProducts: parseInt(value),
-                percentage: Math.ceil((state.numUsers / parseInt(value)) * 100),
+                percentage: calculatePercentage(
+                  state.numUsers,
+                  parseInt(value)
+                ),
               })
             }
           />
@@ -124,8 +141,9 @@ const Home = (): JSX.Element => {
               setState({
                 ...state,
                 numUsers: parseInt(value),
-                percentage: Math.ceil(
-                  (parseInt(value) / state.numProducts) * 100
+                percentage: calculatePercentage(
+                  state.numProducts,
+                  parseInt(value)
                 ),
               })
             }
