@@ -26,7 +26,7 @@ const LoginForm = (): JSX.Element => {
     try {
       if (email === '' || password === '')
         return toast.error('email and password required');
-      await login({ email, password });
+      await login({ email: email.trim(), password });
     } catch (error) {
       console.log(error);
     }
