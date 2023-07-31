@@ -1,6 +1,22 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+const NotAuthorized = () => {
+  return (
+    <NotAuthorizedContainer>
+      <NotAuthorizedTitle>Not Authorized</NotAuthorizedTitle>
+      <NotAuthorizedText>
+        You don't have permission to access this page.
+      </NotAuthorizedText>
+      <Link to="/">
+        <BackButton>Go Back to Home</BackButton>
+      </Link>
+    </NotAuthorizedContainer>
+  );
+};
+
+export default NotAuthorized;
+
 const NotAuthorizedContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,19 +48,3 @@ const BackButton = styled.button`
   font-size: 16px;
   margin-top: 20px;
 `;
-
-const NotAuthorized = () => {
-  return (
-    <NotAuthorizedContainer>
-      <NotAuthorizedTitle>Not Authorized</NotAuthorizedTitle>
-      <NotAuthorizedText>
-        You don't have permission to access this page.
-      </NotAuthorizedText>
-      <Link to="/">
-        <BackButton>Go Back to Home</BackButton>
-      </Link>
-    </NotAuthorizedContainer>
-  );
-};
-
-export default NotAuthorized;

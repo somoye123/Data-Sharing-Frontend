@@ -1,4 +1,4 @@
-import { useLocation, Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useUser } from '../hooks';
 
 interface RequireAuthProps {
@@ -14,16 +14,14 @@ interface RequireAuthProps {
 const RequireAuth = ({ allowedRoles }: RequireAuthProps): JSX.Element => {
   const { user, isAuthenticated } = useUser();
 
-  const location = useLocation();
-
   return user &&
     allowedRoles?.length > 0 &&
     allowedRoles.find(({ isAdmin }) => isAdmin === user?.isAdmin) ? (
     <Outlet />
   ) : isAuthenticated ? (
-    <Navigate to="/unauthorized" state={{ from: location }} replace />
+    <Navigate to="/unauthorized" />
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/login" />
   );
 };
 
