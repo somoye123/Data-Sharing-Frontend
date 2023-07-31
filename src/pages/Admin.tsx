@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks';
 import { fetchNonAdmins, uploadUserLogo } from '../redux/userSlice';
 import { useUser } from '../hooks';
-import { FileUpload } from '../components';
+import { FileUpload, Table } from '../components';
 import { fileUpload } from '../types/Sx';
 import styled from 'styled-components';
 
@@ -33,13 +33,15 @@ const Admin = () => {
     fetchUsers();
   }, [fetchUsers]);
 
-  if (status === 'loading') return <p>Retrieving User A and User B</p>;
+  if (status === 'loading') return <h1>Retrieving User A and User B</h1>;
   return (
     <>
       <Button type="button" onClick={() => setIsComparing((old) => !old)}>
         {isComparing ? 'Stop Comparing' : 'Compare Users'}
       </Button>
-      {isComparing && (
+      {isComparing ? (
+        <Table data={nonAdmins} />
+      ) : (
         <>
           {nonAdmins?.map(({ companyDetails, uid }, index) => (
             <UserContainer key={uid}>
