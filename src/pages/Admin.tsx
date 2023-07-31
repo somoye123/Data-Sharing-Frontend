@@ -4,6 +4,7 @@ import { fetchNonAdmins, uploadUserLogo } from '../redux/userSlice';
 import { useUser } from '../hooks';
 import { FileUpload } from '../components';
 import { fileUpload } from '../types/Sx';
+import styled from 'styled-components';
 
 const Admin = () => {
   const [isComparing, setIsComparing] = useState<boolean>(false);
@@ -35,13 +36,13 @@ const Admin = () => {
   if (status === 'loading') return <p>Retrieving User A and User B</p>;
   return (
     <>
-      <button type="button" onClick={() => setIsComparing((old) => !old)}>
+      <Button type="button" onClick={() => setIsComparing((old) => !old)}>
         {isComparing ? 'Stop Comparing' : 'Compare Users'}
-      </button>
+      </Button>
       {isComparing && (
         <>
           {nonAdmins?.map(({ companyDetails, uid }, index) => (
-            <div key={uid}>
+            <UserContainer key={uid}>
               <h1>User {index + 1}</h1>
               {companyDetails ? (
                 <>
@@ -62,9 +63,9 @@ const Admin = () => {
                   )}
                 </>
               ) : (
-                <p>No User Inputed Details Yet</p>
+                <NoDetails>No inputed Details Yet by the user</NoDetails>
               )}
-            </div>
+            </UserContainer>
           ))}
         </>
       )}
@@ -73,3 +74,42 @@ const Admin = () => {
 };
 
 export default Admin;
+
+const Button = styled.button`
+  padding: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const UserContainer = styled.div`
+  margin: 20px 0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    margin-bottom: 5px;
+  }
+
+  img {
+    max-width: 200px;
+    margin-top: 10px;
+  }
+`;
+
+const NoDetails = styled.p`
+  margin: 10px 0;
+`;
