@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import login from '../firebase/login';
 import { toast } from 'react-toastify';
 import { useUser } from '../hooks';
+import styled from 'styled-components';
 
 /**
  * Login component.
@@ -36,7 +37,7 @@ const LoginForm = (): JSX.Element => {
   }, [user, isAuthenticated, navigate, from]);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <div>
         <label htmlFor="email">Email:</label>
         <input
@@ -56,8 +57,49 @@ const LoginForm = (): JSX.Element => {
         />
       </div>
       <button type="submit">Login</button>
-    </form>
+    </StyledForm>
   );
 };
 
 export default LoginForm;
+
+const StyledForm = styled.form`
+  margin: 4rem auto;
+  max-width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  div {
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input {
+    width: 94%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 1rem;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+`;
